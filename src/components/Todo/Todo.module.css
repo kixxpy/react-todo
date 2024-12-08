@@ -1,0 +1,18 @@
+.todo {
+	display: flex;
+	gap: 15px;
+	word-break: break-all;
+	flex-wrap: nowrap;
+	color: var(--text-color);
+	font-size: 20px;
+}
+.buttons {
+	display: flex;
+	gap: 10px;
+}
+.button {
+	border: none;
+	background: none;
+	outline: none;
+	cursor: pointer;
+}

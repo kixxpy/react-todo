@@ -23,7 +23,12 @@ export const TodoWrapper = (): JSX.Element => {
 			</div>
 			<div className={styles['content']}>
 				{tasks.length === 0 && (
-					<div className={styles['empty']}>Список задач пуст...</div>
+					<div>
+						<div className={styles['empty']}>Список пуст...</div>
+						<div className={styles['arrow']}>
+							<img src='/row.png' alt='Рисунок стрелки' />
+						</div>
+					</div>
 				)}
 				{tasks.map((task, index) => (
 					<Todo key={index} task={task} onDelite={() => deliteTask(task)} />

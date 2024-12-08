@@ -3,13 +3,17 @@ import { Todo } from '../Todo/Todo';
 import styles from './TodoWrapper.module.css';
 
 export const TodoWrapper = (): JSX.Element => {
-	const [inputValue, setInputValue] = useState<string>('');
+	const [task, setTask] = useState<string>('');
 	const [tasks, setTasks] = useState<string[]>([]);
 
 	const addTask = (e: React.FormEvent): void => {
 		e.preventDefault();
-		setTasks([...tasks, inputValue]);
-		setInputValue('');
+		setTasks([...tasks, task]);
+		setTask('');
+	};
+
+	const deliteTask = (task: string) => {
+		setTasks(tasks.filter(item => item !== task));
 	};
 
 	return (
@@ -22,21 +26,21 @@ export const TodoWrapper = (): JSX.Element => {
 					<div className={styles['empty']}>Список задач пуст...</div>
 				)}
 				{tasks.map((task, index) => (
-					<Todo key={index} task={task} />
+					<Todo key={index} task={task} onDelite={() => deliteTask(task)} />
 				))}
 			</div>
 			<div className={styles['footer']}>
 				<form className={styles['form']}>
 					<input
 						className={styles['input']}
-						value={inputValue}
-						onChange={e => setInputValue(e.target.value)}
+						value={task}
+						onChange={e => setTask(e.target.value)}
 						type='text'
 						placeholder='Вы можете печатать здесь...'
 					/>
 					<button
 						onClick={addTask}
-						disabled={!inputValue}
+						disabled={!task}
 						className={styles['button']}
 						type='submit'
 					>

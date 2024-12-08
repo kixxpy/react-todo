@@ -64,6 +64,9 @@
 	font-weight: 400;
 	line-height: 28px;
 }
+.input-error {
+	color: red;
+}
 .input::placeholder {
 	font-family: var(--font);
 	color: var(--text-color);

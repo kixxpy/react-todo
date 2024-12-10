@@ -31,7 +31,7 @@ export const TodoWrapper = (): JSX.Element => {
 					</div>
 				)}
 				{tasks.map((task, index) => (
-					<Todo key={index} task={task} onDelite={() => deliteTask(task)} />
+					<Todo key={index} task={task} onDelite={task => deliteTask(task)} />
 				))}
 			</div>
 			<div className={styles['footer']}>

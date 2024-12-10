@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Todo } from '../Todo/Todo';
 import styles from './TodoWrapper.module.css';
 
@@ -6,10 +6,22 @@ export const TodoWrapper = (): JSX.Element => {
 	const [task, setTask] = useState<string>('');
 	const [tasks, setTasks] = useState<string[]>([]);
 
-	const addTask = (e: React.FormEvent): void => {
-		e.preventDefault();
-		setTasks([...tasks, task]);
-		setTask('');
+	useEffect(() => {
+		const savedTodos =
+			JSON.parse(localStorage.getItem('todos') as string) || [];
+		setTasks(savedTodos);
+	}, []);
+
+	// const addTask = (e: React.FormEvent): void => {
+	// 	e.preventDefault();
+	// 	setTasks([...tasks, task]);
+	// 	setTask('');
+	// };
+
+	const addTask = (task: string) => {
+		const newTodos = [...tasks, task];
+		setTasks(newTodos);
+		localStorage.setItem('todos', JSON.stringify(newTodos));
 	};
 
 	const deliteTask = (task: string) => {
@@ -44,7 +56,11 @@ export const TodoWrapper = (): JSX.Element => {
 						placeholder='Вы можете печатать здесь...'
 					/>
 					<button
-						onClick={addTask}
+						onClick={e => {
+							e.preventDefault();
+							addTask(task);
+							setTask('');
+						}}
 						disabled={!task}
 						className={styles['button']}
 						type='submit'

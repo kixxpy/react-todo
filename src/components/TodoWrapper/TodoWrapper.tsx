@@ -12,20 +12,16 @@ export const TodoWrapper = (): JSX.Element => {
 		setTasks(savedTodos);
 	}, []);
 
-	// const addTask = (e: React.FormEvent): void => {
-	// 	e.preventDefault();
-	// 	setTasks([...tasks, task]);
-	// 	setTask('');
-	// };
-
 	const addTask = (task: string) => {
 		const newTodos = [...tasks, task];
 		setTasks(newTodos);
 		localStorage.setItem('todos', JSON.stringify(newTodos));
 	};
 
-	const deliteTask = (task: string) => {
-		setTasks(tasks.filter(item => item !== task));
+	const deleteTask = (task: string) => {
+		const newTodos = tasks.filter(todo => todo !== task);
+		setTasks(newTodos);
+		localStorage.setItem('todos', JSON.stringify(newTodos));
 	};
 
 	return (
@@ -43,7 +39,7 @@ export const TodoWrapper = (): JSX.Element => {
 					</div>
 				)}
 				{tasks.map((task, index) => (
-					<Todo key={index} task={task} onDelite={task => deliteTask(task)} />
+					<Todo key={index} task={task} onDelite={task => deleteTask(task)} />
 				))}
 			</div>
 			<div className={styles['footer']}>
